@@ -1,10 +1,10 @@
-# 🏥 MedConnect — Medical Supply Redistribution Network
+# MedConnect — Medical Supply Redistribution Network
 
 > **Hackathon Project | SDG 3.8 | Universal Health Coverage**
 
-MedConnect is a B2B marketplace connecting medical surplus from hospitals, pharmacies, and individuals to verified NGOs and free clinics — at zero cost.
+MedConnect is a B2B marketplace connecting medical surplus from hospitals, pharmacies, and individuals to verified NGOs and free clinics, at zero cost.
 
-## 🚀 Quick Start
+## Quick Start
 
 ```bash
 # 1. Install dependencies
@@ -17,7 +17,7 @@ npm start
 http://localhost:3000
 ```
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 medconnect/
@@ -38,7 +38,7 @@ medconnect/
 └── package.json
 ```
 
-## 🌍 SDG Alignment
+## SDG Alignment
 
 **SDG 3.8** — Achieve universal health coverage, including access to safe, effective, quality, and affordable essential medicines and vaccines for all.
 
@@ -47,24 +47,24 @@ MedConnect directly addresses:
 - Medical waste from surplus inventory
 - Budget constraints limiting NGO patient care capacity
 
-## 💡 Key Features
+## Key Features
 
 | Feature | Description |
 |---|---|
-| 📦 Marketplace | Browse surplus by category, location, urgency |
-| 🎁 Donate Flow | Hospitals/clinics/individuals list surplus in 2 mins |
-| ✅ Claim System | NGOs claim items with org verification |
-| 📊 Dashboard | Live stats on redistribution impact |
-| 🔒 Verification | Donor + recipient verification model |
+|  Marketplace | Browse surplus by category, location, urgency |
+|  Donate Flow | Hospitals/clinics/individuals list surplus in 2 mins |
+|  Claim System | NGOs claim items with org verification |
+|  Dashboard | Live stats on redistribution impact |
+|  Verification | Donor + recipient verification model |
 
-## 🔧 Tech Stack
+##  Tech Stack
 
 - **Backend**: Node.js + Express
 - **Templating**: EJS
 - **Storage**: In-memory (swap for MongoDB/PostgreSQL in production)
 - **Fonts**: DM Serif Display + DM Sans (Google Fonts)
 
-## 🏗️ Production Additions (Post-Hackathon)
+##  Production Additions (Post-Hackathon)
 
 - [ ] Database (MongoDB or PostgreSQL)
 - [ ] Authentication (Passport.js / Auth0)
@@ -74,6 +74,6 @@ MedConnect directly addresses:
 - [ ] Geolocation-based matching
 - [ ] Impact tracking & reporting
 
-## 📄 License
+##  License
 
 MIT — Built for good.
