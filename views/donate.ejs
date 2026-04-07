@@ -1,0 +1,179 @@
+<%- include('partials/header', { title: 'Donate Supplies', active: 'donate' }) %>
+
+<div class="dash-header">
+  <div class="container">
+    <h1>List Surplus Medical Supplies</h1>
+    <p>Connect your excess inventory with NGOs and free clinics that need it</p>
+  </div>
+</div>
+
+<section class="section-sm">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:2fr 1fr;gap:48px;align-items:start;">
+
+      <!-- Form -->
+      <div>
+        <% if (success) { %>
+        <div class="alert alert-success" style="margin-bottom:32px;">
+          <span>🎉</span>
+          <div>
+            <strong>Listing Posted Successfully!</strong><br>
+            <span style="font-size:0.875rem;">Your supply has been listed and is now visible to verified NGOs and free clinics. Thank you for donating!</span>
+          </div>
+        </div>
+        <% } %>
+
+        <div class="card">
+          <div class="card-body" style="padding:36px;">
+            <h3 style="margin-bottom:4px;">Supply Information</h3>
+            <p style="font-size:0.875rem;margin-bottom:28px;">All fields marked with * are required</p>
+
+            <form action="/donate" method="POST">
+              <div class="form-group">
+                <label class="form-label">Item Name / Title <span>*</span></label>
+                <input type="text" name="title" class="form-control" placeholder="e.g. Nitrile Surgical Gloves (Size M)" required>
+                <div class="form-hint">Be specific — include brand, size, or type if relevant</div>
+              </div>
+
+              <div class="form-grid">
+                <div class="form-group">
+                  <label class="form-label">Category <span>*</span></label>
+                  <select name="category" class="form-control" required>
+                    <option value="">Select category...</option>
+                    <option value="Medication">Medication</option>
+                    <option value="Equipment">Medical Equipment</option>
+                    <option value="PPE">PPE</option>
+                    <option value="Supplies">General Supplies</option>
+                    <option value="Lab">Lab Supplies</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Quantity <span>*</span></label>
+                  <input type="text" name="quantity" class="form-control" placeholder="e.g. 200 units, 5 boxes" required>
+                </div>
+              </div>
+
+              <div class="form-grid">
+                <div class="form-group">
+                  <label class="form-label">Condition <span>*</span></label>
+                  <select name="condition" class="form-control" required>
+                    <option value="">Select condition...</option>
+                    <option value="Sealed/Unused">Sealed / Unused</option>
+                    <option value="Like New">Like New</option>
+                    <option value="Lightly Used">Lightly Used</option>
+                    <option value="Good Condition">Good Condition</option>
+                    <option value="Refurbished">Refurbished</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Expiry Date</label>
+                  <input type="date" name="expiry" class="form-control">
+                  <div class="form-hint">Leave blank if not applicable (equipment)</div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Description <span>*</span></label>
+                <textarea name="description" class="form-control" rows="4" placeholder="Describe the item in detail — why it's surplus, any important notes, storage conditions, etc." required></textarea>
+              </div>
+
+              <hr class="divider">
+
+              <h4 style="margin-bottom:20px;font-family:'DM Sans',sans-serif;font-weight:600;">Donor Information</h4>
+
+              <div class="form-grid">
+                <div class="form-group">
+                  <label class="form-label">Donor / Organization Name <span>*</span></label>
+                  <input type="text" name="donor" class="form-control" placeholder="City General Hospital" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Donor Type <span>*</span></label>
+                  <select name="donorType" class="form-control" required>
+                    <option value="">Select type...</option>
+                    <option value="hospital">Hospital</option>
+                    <option value="clinic">Clinic</option>
+                    <option value="pharmacy">Pharmacy</option>
+                    <option value="individual">Individual</option>
+                    <option value="ngo">NGO / Nonprofit</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-grid">
+                <div class="form-group">
+                  <label class="form-label">Location <span>*</span></label>
+                  <input type="text" name="location" class="form-control" placeholder="City, State" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Contact Email <span>*</span></label>
+                  <input type="email" name="contact" class="form-control" placeholder="supplies@yourorg.org" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Urgency Level</label>
+                <select name="urgency" class="form-control">
+                  <option value="normal">Normal — No rush</option>
+                  <option value="high">High — Expiring soon / time-sensitive</option>
+                </select>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-full btn-lg" style="margin-top:8px;">
+                🎁 Post This Listing
+              </button>
+              <p style="font-size:0.78rem;color:var(--muted);text-align:center;margin-top:10px;">Your listing will be visible immediately to all verified NGOs on the platform.</p>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div>
+        <div class="card" style="margin-bottom:20px;">
+          <div class="card-body">
+            <h4 style="margin-bottom:16px;">📋 What Can I Donate?</h4>
+            <div class="timeline">
+              <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <strong style="font-size:0.875rem;">Medications</strong>
+                <p style="font-size:0.82rem;">Unexpired, sealed pharmaceuticals — prescription or OTC</p>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <strong style="font-size:0.875rem;">Medical Equipment</strong>
+                <p style="font-size:0.82rem;">Monitors, diagnostic tools, surgical instruments</p>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <strong style="font-size:0.875rem;">PPE & Supplies</strong>
+                <p style="font-size:0.82rem;">Gloves, masks, gowns, dressings, syringes</p>
+              </div>
+              <div class="timeline-item" style="margin-bottom:0;">
+                <div class="timeline-dot"></div>
+                <strong style="font-size:0.875rem;">Lab & Diagnostic</strong>
+                <p style="font-size:0.82rem;">Test kits, reagents, specimen containers</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="alert alert-warning">
+          <span>⚠️</span>
+          <div style="font-size:0.82rem;">
+            <strong>Do Not List:</strong> Expired medications, opened sterile supplies, controlled substances (Class I-II), or items without proper documentation.
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:20px;">
+          <div class="card-body">
+            <h4 style="margin-bottom:10px;">🔒 How We Verify</h4>
+            <p style="font-size:0.85rem;line-height:1.6;">All NGO recipients are verified before claiming. Your donation goes to legitimate health organizations, not resellers. We track every item from listing to delivery.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

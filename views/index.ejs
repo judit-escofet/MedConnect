@@ -1,0 +1,146 @@
+<%- include('partials/header', { title: 'Home', active: 'home' }) %>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-tag">
+      <span>🌍</span> SDG 3.8 · Universal Health Coverage
+    </div>
+    <h1>Medical supplies shouldn't<br><em>go to waste</em></h1>
+    <p>Connect surplus medical supplies from hospitals, pharmacies, and individuals directly to verified free clinics and NGOs in need.</p>
+    <div class="hero-actions">
+      <a href="/marketplace" class="btn btn-primary btn-lg">Browse Available Supplies</a>
+      <a href="/donate" class="btn btn-outline btn-lg" style="color:rgba(255,255,255,0.85);border-color:rgba(255,255,255,0.25);">List Surplus Items</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="hero-stat-num"><%= stats.itemsRedirected.toLocaleString() %>+</div>
+        <div class="hero-stat-label">Items Redistributed</div>
+      </div>
+      <div>
+        <div class="hero-stat-num"><%= stats.partners %>+</div>
+        <div class="hero-stat-label">Verified Partners</div>
+      </div>
+      <div>
+        <div class="hero-stat-num"><%= stats.available %></div>
+        <div class="hero-stat-label">Available Now</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">$0</div>
+        <div class="hero-stat-label">Cost to NGOs</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- How It Works -->
+<section class="section" style="background:white;">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">How It Works</div>
+      <h2>Simple. Transparent. Impactful.</h2>
+      <p>MedConnect removes friction from medical supply redistribution — turning excess inventory into life-changing resources.</p>
+    </div>
+    <div class="grid-3">
+      <div style="padding:32px;border-radius:var(--r-lg);border:1px solid var(--border);">
+        <div class="step-num">01</div>
+        <div style="font-size:2rem;margin-bottom:12px;">🏥</div>
+        <h4 style="margin-bottom:10px;">Donors List Surplus</h4>
+        <p style="font-size:0.9rem;">Hospitals, pharmacies, and individuals post available items — equipment, medication, PPE, and more — in under 2 minutes.</p>
+      </div>
+      <div style="padding:32px;border-radius:var(--r-lg);background:var(--mint-light);border:1px solid var(--mint-mid);">
+        <div class="step-num" style="color:var(--mint);">02</div>
+        <div style="font-size:2rem;margin-bottom:12px;">🔍</div>
+        <h4 style="margin-bottom:10px;">NGOs Browse & Claim</h4>
+        <p style="font-size:0.9rem;">Verified free clinics and NGOs search by category, location, and urgency, then claim items they need for their patients.</p>
+      </div>
+      <div style="padding:32px;border-radius:var(--r-lg);border:1px solid var(--border);">
+        <div class="step-num">03</div>
+        <div style="font-size:2rem;margin-bottom:12px;">🤝</div>
+        <h4 style="margin-bottom:10px;">Direct Connection</h4>
+        <p style="font-size:0.9rem;">Both parties connect directly to arrange pickup or delivery — no middleman, no markup, just supplies reaching those in need.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Recent Listings -->
+<section class="section">
+  <div class="container">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:40px;flex-wrap:wrap;gap:16px;">
+      <div>
+        <div class="section-label">Latest Listings</div>
+        <h2>Available Now</h2>
+      </div>
+      <a href="/marketplace" class="btn btn-secondary" style="margin-top:8px;">View All Supplies →</a>
+    </div>
+    <div class="grid-4">
+      <% listings.forEach(listing => { %>
+      <div class="card listing-card">
+        <div class="listing-img">
+          <%= listing.category === 'Medication' ? '💊' : listing.category === 'Equipment' ? '🩺' : listing.category === 'PPE' ? '🧤' : '🏥' %>
+        </div>
+        <div class="card-body">
+          <div class="listing-meta">
+            <span class="badge badge-<%= listing.status %>"><%= listing.status === 'available' ? '✓ Available' : '✔ Claimed' %></span>
+            <% if (listing.urgency === 'high') { %><span class="badge badge-high">⚡ Urgent</span><% } %>
+          </div>
+          <div class="listing-title"><%= listing.title %></div>
+          <div class="listing-detail">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <%= listing.location %>
+          </div>
+          <div class="listing-detail">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+            Qty: <%= listing.quantity %>
+          </div>
+        </div>
+        <div class="card-footer">
+          <a href="/listing/<%= listing.id %>" class="btn btn-secondary btn-sm btn-full">View Details</a>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<!-- Stats -->
+<section class="section" style="background:var(--navy);color:white;">
+  <div class="container text-center">
+    <div class="section-label" style="color:var(--mint);">Our Impact</div>
+    <h2 style="color:white;margin-bottom:16px;">Every item has a story</h2>
+    <p style="color:rgba(255,255,255,0.55);margin-bottom:56px;max-width:500px;margin-left:auto;margin-right:auto;">Medical supplies that would have been discarded are now saving lives and stretching the budgets of under-resourced health organizations.</p>
+    <div class="grid-4">
+      <div>
+        <div style="font-family:'DM Serif Display',serif;font-size:3rem;color:var(--mint);">47</div>
+        <div style="color:rgba(255,255,255,0.5);font-size:0.9rem;margin-top:4px;">Verified Partners</div>
+      </div>
+      <div>
+        <div style="font-family:'DM Serif Display',serif;font-size:3rem;color:var(--mint);">12K+</div>
+        <div style="color:rgba(255,255,255,0.5);font-size:0.9rem;margin-top:4px;">Items Redistributed</div>
+      </div>
+      <div>
+        <div style="font-family:'DM Serif Display',serif;font-size:3rem;color:var(--mint);">$2.4M</div>
+        <div style="color:rgba(255,255,255,0.5);font-size:0.9rem;margin-top:4px;">Estimated Value Saved</div>
+      </div>
+      <div>
+        <div style="font-family:'DM Serif Display',serif;font-size:3rem;color:var(--mint);">6</div>
+        <div style="color:rgba(255,255,255,0.5);font-size:0.9rem;margin-top:4px;">States Covered</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section" style="background:var(--mint-light);">
+  <div class="container text-center">
+    <h2 style="margin-bottom:14px;">Ready to make a difference?</h2>
+    <p style="margin-bottom:32px;max-width:480px;margin-left:auto;margin-right:auto;">Whether you have surplus supplies to give or a clinic in need, MedConnect was built for you.</p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+      <a href="/donate" class="btn btn-primary btn-lg">I Have Surplus to Donate</a>
+      <a href="/marketplace" class="btn btn-secondary btn-lg">I Need Medical Supplies</a>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

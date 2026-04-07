@@ -1,0 +1,144 @@
+<%- include('partials/header', { title: 'Dashboard', active: 'dashboard' }) %>
+
+<div class="dash-header">
+  <div class="container">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;">
+      <div>
+        <h1>Platform Dashboard</h1>
+        <p>Real-time overview of MedConnect's redistribution network</p>
+      </div>
+      <a href="/donate" class="btn btn-primary">+ New Listing</a>
+    </div>
+  </div>
+</div>
+
+<section class="section-sm">
+  <div class="container">
+    <!-- Stat Cards -->
+    <div class="grid-4" style="margin-bottom:36px;">
+      <div class="stat-card">
+        <div class="stat-number" style="color:var(--mint);"><%= stats.available %></div>
+        <div class="stat-label">Available Listings</div>
+        <div style="margin-top:12px;" class="progress"><div class="progress-bar" style="width:<%= Math.round(stats.available / (stats.available + stats.claimed) * 100) %>%"></div></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number"><%= stats.claimed %></div>
+        <div class="stat-label">Items Claimed</div>
+        <div style="font-size:0.8rem;color:var(--muted);margin-top:8px;">Successfully redistributed</div>
+      </div>
+      <div class="stat-card" style="border-color:#FCA5A5;">
+        <div class="stat-number" style="color:var(--coral);"><%= stats.highUrgency %></div>
+        <div class="stat-label">High-Urgency Items</div>
+        <div style="margin-top:12px;"><span class="badge badge-high">⚡ Needs Attention</span></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number"><%= stats.categories %></div>
+        <div class="stat-label">Supply Categories</div>
+        <div style="font-size:0.8rem;color:var(--muted);margin-top:8px;">Across all listings</div>
+      </div>
+    </div>
+
+    <div class="grid-2" style="margin-bottom:36px;">
+      <!-- Category Breakdown -->
+      <div class="card">
+        <div class="card-body">
+          <h3 style="margin-bottom:24px;">Supply by Category</h3>
+          <% Object.entries(categoryBreakdown).forEach(([cat, count]) => { %>
+          <div style="margin-bottom:16px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+              <span style="font-size:0.875rem;font-weight:500;color:var(--slate);">
+                <%= cat === 'Medication' ? '💊' : cat === 'Equipment' ? '🩺' : cat === 'PPE' ? '🧤' : '🏥' %> <%= cat %>
+              </span>
+              <span style="font-size:0.875rem;font-weight:600;color:var(--navy);"><%= count %> items</span>
+            </div>
+            <div class="progress">
+              <div class="progress-bar" style="width:<%= Math.round(count / Object.values(categoryBreakdown).reduce((a,b)=>a+b,0) * 100) %>%"></div>
+            </div>
+          </div>
+          <% }) %>
+        </div>
+      </div>
+
+      <!-- Quick Stats -->
+      <div class="card">
+        <div class="card-body">
+          <h3 style="margin-bottom:24px;">Platform Health</h3>
+          <div style="display:flex;flex-direction:column;gap:16px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:14px;background:var(--mint-light);border-radius:var(--r-md);">
+              <span style="font-size:0.875rem;font-weight:500;">Claim Rate</span>
+              <span style="font-weight:700;color:var(--teal);">
+                <%= Math.round(stats.claimed / (stats.available + stats.claimed) * 100) %>%
+              </span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:14px;background:var(--light);border-radius:var(--r-md);">
+              <span style="font-size:0.875rem;font-weight:500;">Verified Partners</span>
+              <span style="font-weight:700;color:var(--navy);">47</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:14px;background:var(--light);border-radius:var(--r-md);">
+              <span style="font-size:0.875rem;font-weight:500;">States Covered</span>
+              <span style="font-weight:700;color:var(--navy);">6</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:14px;background:var(--light);border-radius:var(--r-md);">
+              <span style="font-size:0.875rem;font-weight:500;">Estimated Value Saved</span>
+              <span style="font-weight:700;color:var(--navy);">$2.4M</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:14px;background:#FEE2E2;border-radius:var(--r-md);">
+              <span style="font-size:0.875rem;font-weight:500;color:#B91C1C;">⚡ Urgent Items</span>
+              <span style="font-weight:700;color:#B91C1C;"><%= stats.highUrgency %> need attention</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Listings Table -->
+    <div class="card">
+      <div class="card-body" style="padding:28px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
+          <h3>Recent Listings</h3>
+          <a href="/marketplace" class="btn btn-secondary btn-sm">View All</a>
+        </div>
+        <div style="overflow-x:auto;">
+          <table style="width:100%;border-collapse:collapse;">
+            <thead>
+              <tr style="border-bottom:2px solid var(--border);">
+                <th style="text-align:left;padding:10px 12px;font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--muted);">Item</th>
+                <th style="text-align:left;padding:10px 12px;font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--muted);">Category</th>
+                <th style="text-align:left;padding:10px 12px;font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--muted);">Donor</th>
+                <th style="text-align:left;padding:10px 12px;font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--muted);">Qty</th>
+                <th style="text-align:left;padding:10px 12px;font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--muted);">Status</th>
+                <th style="padding:10px 12px;"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% listings.forEach(listing => { %>
+              <tr style="border-bottom:1px solid var(--border);transition:background 0.15s;" onmouseover="this.style.background='var(--light)'" onmouseout="this.style.background=''">
+                <td style="padding:14px 12px;">
+                  <div style="font-weight:600;font-size:0.9rem;color:var(--navy);">
+                    <%= listing.category === 'Medication' ? '💊' : listing.category === 'Equipment' ? '🩺' : listing.category === 'PPE' ? '🧤' : '🏥' %>
+                    <%= listing.title.length > 40 ? listing.title.substring(0,40) + '...' : listing.title %>
+                  </div>
+                  <div style="font-size:0.78rem;color:var(--muted);margin-top:2px;"><%= listing.location %></div>
+                </td>
+                <td style="padding:14px 12px;"><span class="badge badge-<%= listing.category.toLowerCase() %>"><%= listing.category %></span></td>
+                <td style="padding:14px 12px;font-size:0.875rem;color:var(--slate);"><%= listing.donor %></td>
+                <td style="padding:14px 12px;font-size:0.875rem;font-weight:500;color:var(--navy);"><%= listing.quantity %></td>
+                <td style="padding:14px 12px;">
+                  <span class="badge badge-<%= listing.status %>"><%= listing.status === 'available' ? '✓ Available' : '✔ Claimed' %></span>
+                  <% if (listing.urgency === 'high') { %><br><span class="badge badge-high" style="margin-top:4px;">⚡ Urgent</span><% } %>
+                </td>
+                <td style="padding:14px 12px;">
+                  <a href="/listing/<%= listing.id %>" class="btn btn-secondary btn-sm">View</a>
+                </td>
+              </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<%- include('partials/footer') %>

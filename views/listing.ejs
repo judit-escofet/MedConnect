@@ -1,0 +1,140 @@
+<%- include('partials/header', { title: listing.title, active: 'marketplace' }) %>
+
+<section class="section-sm">
+  <div class="container">
+    <!-- Breadcrumb -->
+    <div style="display:flex;align-items:center;gap:8px;font-size:0.875rem;color:var(--muted);margin-bottom:32px;">
+      <a href="/" style="color:var(--muted);">Home</a>
+      <span>›</span>
+      <a href="/marketplace" style="color:var(--muted);">Marketplace</a>
+      <span>›</span>
+      <span style="color:var(--slate);"><%= listing.title %></span>
+    </div>
+
+    <div style="display:grid;grid-template-columns:2fr 1fr;gap:40px;align-items:start;">
+      <!-- Left: Main Info -->
+      <div>
+        <!-- Image Banner -->
+        <div style="background:var(--mint-light);border-radius:var(--r-xl);height:200px;display:flex;align-items:center;justify-content:center;font-size:5rem;margin-bottom:32px;border:1px solid var(--mint-mid);">
+          <%= listing.category === 'Medication' ? '💊' : listing.category === 'Equipment' ? '🩺' : listing.category === 'PPE' ? '🧤' : '🏥' %>
+        </div>
+
+        <!-- Badges -->
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;">
+          <span class="badge badge-<%= listing.status %>" style="font-size:0.875rem;padding:5px 14px;">
+            <%= listing.status === 'available' ? '✓ Available' : '✔ Claimed' %>
+          </span>
+          <span class="badge badge-<%= listing.category.toLowerCase() %>" style="font-size:0.875rem;padding:5px 14px;"><%= listing.category %></span>
+          <% if (listing.urgency === 'high') { %>
+          <div class="urgency-banner">⚡ High Priority — Needed Urgently</div>
+          <% } %>
+        </div>
+
+        <h1 style="font-size:2rem;margin-bottom:12px;line-height:1.25;"><%= listing.title %></h1>
+        <p style="font-size:1.05rem;line-height:1.7;margin-bottom:32px;"><%= listing.description %></p>
+
+        <hr class="divider">
+
+        <!-- Details Grid -->
+        <h3 style="margin-bottom:20px;">Supply Details</h3>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+          <div style="padding:16px;background:var(--light);border-radius:var(--r-md);">
+            <div style="font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:6px;">Quantity</div>
+            <div style="font-weight:600;color:var(--navy);"><%= listing.quantity %></div>
+          </div>
+          <div style="padding:16px;background:var(--light);border-radius:var(--r-md);">
+            <div style="font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:6px;">Condition</div>
+            <div style="font-weight:600;color:var(--navy);"><%= listing.condition %></div>
+          </div>
+          <div style="padding:16px;background:var(--light);border-radius:var(--r-md);">
+            <div style="font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:6px;">Location</div>
+            <div style="font-weight:600;color:var(--navy);"><%= listing.location %></div>
+          </div>
+          <div style="padding:16px;background:var(--light);border-radius:var(--r-md);">
+            <div style="font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:6px;">Donor Type</div>
+            <span class="badge badge-<%= listing.donorType %>"><%= listing.donorType.charAt(0).toUpperCase() + listing.donorType.slice(1) %></span>
+          </div>
+          <% if (listing.expiry) { %>
+          <div style="padding:16px;background:var(--light);border-radius:var(--r-md);">
+            <div style="font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:6px;">Expiry Date</div>
+            <div style="font-weight:600;color:var(--navy);"><%= new Date(listing.expiry).toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric'}) %></div>
+          </div>
+          <% } %>
+          <div style="padding:16px;background:var(--light);border-radius:var(--r-md);">
+            <div style="font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:6px;">Listed</div>
+            <div style="font-weight:600;color:var(--navy);"><%= new Date(listing.postedAt).toLocaleDateString('en-US', {month:'long',day:'numeric',year:'numeric'}) %></div>
+          </div>
+        </div>
+
+        <hr class="divider">
+
+        <div class="alert alert-info">
+          <span>ℹ️</span>
+          <div>
+            <strong>For NGOs & Free Clinics Only</strong><br>
+            <span style="font-size:0.875rem;">This platform serves verified nonprofit health organizations. All donations are free of charge.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Claim Card -->
+      <div>
+        <div class="card" style="position:sticky;top:84px;">
+          <div class="card-body">
+            <% if (listing.status === 'available') { %>
+            <h3 style="margin-bottom:6px;">Claim This Supply</h3>
+            <p style="font-size:0.875rem;margin-bottom:20px;">Fill out your organization details to claim these supplies. Donation is free for verified NGOs.</p>
+
+            <form action="/claim/<%= listing.id %>" method="POST">
+              <div class="form-group">
+                <label class="form-label">Organization Name <span>*</span></label>
+                <input type="text" name="orgName" class="form-control" placeholder="Hope Free Clinic" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Contact Email <span>*</span></label>
+                <input type="email" name="contact" class="form-control" placeholder="contact@yourorg.org" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Message to Donor</label>
+                <textarea name="message" class="form-control" rows="3" placeholder="Briefly describe your need and patient population served..."></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary btn-full">
+                ✓ Claim These Supplies
+              </button>
+              <p style="font-size:0.78rem;color:var(--muted);text-align:center;margin-top:10px;">By claiming, you confirm your NGO is a verified health organization.</p>
+            </form>
+
+            <% } else { %>
+            <div style="text-align:center;padding:12px 0;">
+              <div style="font-size:3rem;margin-bottom:12px;">✅</div>
+              <h4 style="margin-bottom:8px;">Already Claimed</h4>
+              <p style="font-size:0.875rem;">These supplies have been claimed. Browse more available items.</p>
+              <a href="/marketplace" class="btn btn-primary btn-full" style="margin-top:16px;">Browse More Supplies</a>
+            </div>
+            <% } %>
+          </div>
+          <div class="card-footer">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:36px;height:36px;background:var(--mint-light);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;">
+                <%= listing.donorType === 'hospital' ? '🏥' : listing.donorType === 'pharmacy' ? '💊' : listing.donorType === 'clinic' ? '🩺' : '👤' %>
+              </div>
+              <div>
+                <div style="font-weight:600;font-size:0.875rem;color:var(--navy);"><%= listing.donor %></div>
+                <div style="font-size:0.8rem;color:var(--muted);"><%= listing.contact %></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="alert alert-success" style="margin-top:16px;">
+          <span>🔒</span>
+          <div style="font-size:0.82rem;">
+            <strong>Verified Platform</strong> — All donors and NGOs go through identity verification before listing or claiming.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>
