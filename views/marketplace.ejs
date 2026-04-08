@@ -79,7 +79,7 @@
           <% } %>
         </div>
         <div class="card-footer">
-          <a href="/listing/<%= listing.id %>" class="btn btn-<%= listing.status === 'available' ? 'primary' : 'secondary' %> btn-sm btn-full">
+          <a href="/listing/<%= listing._id %>" class="btn btn-<%= listing.status === 'available' ? 'primary' : 'secondary' %> btn-sm btn-full">
             <%= listing.status === 'available' ? 'View & Claim →' : 'View Details' %>
           </a>
         </div>

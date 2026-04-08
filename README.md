@@ -2,27 +2,39 @@
 
 > **Hackathon Project | SDG 3.8 | Universal Health Coverage**
 
-MedConnect is a B2B marketplace connecting medical surplus from hospitals, pharmacies, and individuals to verified NGOs and free clinics, at zero cost.
+MedConnect is a B2B marketplace connecting medical surplus from hospitals, pharmacies, and individuals to verified NGOs and free clinics, at zero cost. 
 
 ## Quick Start
 
-```bash
-# 1. Install dependencies
+To run this project locally, you will need a MongoDB Atlas cluster.
+
+**1. Clone and install dependencies**
+\`\`\`bash
 npm install
+\`\`\`
 
-# 2. Start the server
+**2. Configure Environment Variables**
+Create a `.env` file in the root directory and add your MongoDB connection string:
+\`\`\`env
+MONGO_URI=mongodb+srv://<username>:<password>@<cluster-url>/medconnect?retryWrites=true&w=majority
+PORT=3000
+\`\`\`
+
+**3. Start the server**
+\`\`\`bash
 npm start
+# Server will run on http://localhost:3000
+\`\`\`
 
-# 3. Open in browser
-http://localhost:3000
-```
+## Project Structure
 
-##  Project Structure
-
-```
+\`\`\`text
 medconnect/
-├── server.js              # Express app + routes + in-memory data
-├── views/
+├── .env                   # Environment variables (Database credentials)
+├── .gitignore             # Secures .env and node_modules from being pushed
+├── server.js              # Express app + MongoDB connection + API routes
+├── package.json           # App dependencies
+├── views/                 # EJS Templates
 │   ├── index.ejs          # Landing page
 │   ├── marketplace.ejs    # Browse/filter listings
 │   ├── listing.ejs        # Individual listing + claim form
@@ -32,48 +44,44 @@ medconnect/
 │   └── partials/
 │       ├── header.ejs     # Nav
 │       └── footer.ejs     # Footer
-├── public/
-│   └── css/
-│       └── style.css      # Full design system
-└── package.json
-```
+└── public/
+    └── css/
+        └── style.css      # Full design system
+\`\`\`
 
 ## SDG Alignment
 
 **SDG 3.8** — Achieve universal health coverage, including access to safe, effective, quality, and affordable essential medicines and vaccines for all.
 
 MedConnect directly addresses:
-- Supply chain barriers for under-resourced health organizations
-- Medical waste from surplus inventory
-- Budget constraints limiting NGO patient care capacity
+* **Supply Chain Barriers:** Unlocking resources for under-funded health organizations.
+* **Waste Reduction:** Rerouting surplus inventory away from landfills.
+* **Capacity Building:** Freeing up NGO budgets to focus on direct patient care.
 
 ## Key Features
 
 | Feature | Description |
-|---|---|
-|  Marketplace | Browse surplus by category, location, urgency |
-|  Donate Flow | Hospitals/clinics/individuals list surplus in 2 mins |
-|  Claim System | NGOs claim items with org verification |
-|  Dashboard | Live stats on redistribution impact |
-|  Verification | Donor + recipient verification model |
+| :--- | :--- |
+| **Marketplace** | Browse surplus by category, location, and urgency. |
+| **Donate Flow** | Hospitals, clinics, and individuals can list surplus in under 2 minutes. |
+| **Claim System** | NGOs can claim items using an organization verification workflow. |
+| **Live Dashboard** | Real-time database metrics on redistribution impact and inventory. |
 
-##  Tech Stack
+## Tech Stack
 
-- **Backend**: Node.js + Express
-- **Templating**: EJS
-- **Storage**: In-memory (swap for MongoDB/PostgreSQL in production)
-- **Fonts**: DM Serif Display + DM Sans (Google Fonts)
+* **Backend:** Node.js, Express.js
+* **Database:** MongoDB Atlas, Mongoose (ODM)
+* **Frontend:** EJS (Embedded JavaScript templating), HTML5, CSS3
+* **Typography:** DM Serif Display + DM Sans (Google Fonts)
 
-##  Production Additions (Post-Hackathon)
+## Future Roadmap (Post-Hackathon)
 
-- [ ] Database (MongoDB or PostgreSQL)
-- [ ] Authentication (Passport.js / Auth0)
-- [ ] Email notifications (Nodemailer / SendGrid)
-- [ ] File uploads for supply images (Multer + S3)
-- [ ] NGO verification workflow
-- [ ] Geolocation-based matching
-- [ ] Impact tracking & reporting
+- [ ] **Authentication:** Secure user accounts via Passport.js or Auth0.
+- [ ] **Email Notifications:** Automated claim alerts via Nodemailer or SendGrid.
+- [ ] **File Uploads:** Real image hosting for supply listings via Multer + AWS S3.
+- [ ] **Geolocation:** Map-based matching to connect local donors with local clinics.
+- [ ] **Impact Reporting:** Automated PDF generation for hospital tax write-offs.
 
-##  License
+## License
 
 MIT — Built for good.
