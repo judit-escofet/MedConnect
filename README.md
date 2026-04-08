@@ -9,45 +9,45 @@ MedConnect is a B2B marketplace connecting medical surplus from hospitals, pharm
 To run this project locally, you will need a MongoDB Atlas cluster.
 
 **1. Clone and install dependencies**
-\`\`\`bash
+```bash
 npm install
-\`\`\`
+```
 
 **2. Configure Environment Variables**
 Create a `.env` file in the root directory and add your MongoDB connection string:
-\`\`\`env
+```env
 MONGO_URI=mongodb+srv://<username>:<password>@<cluster-url>/medconnect?retryWrites=true&w=majority
 PORT=3000
-\`\`\`
+```
 
 **3. Start the server**
-\`\`\`bash
+```bash
 npm start
 # Server will run on http://localhost:3000
-\`\`\`
+```
 
 ## Project Structure
 
-\`\`\`text
+```text
 medconnect/
 ├── .env                   # Environment variables (Database credentials)
 ├── .gitignore             # Secures .env and node_modules from being pushed
-├── server.js              # Express app + MongoDB connection + API routes
 ├── package.json           # App dependencies
-├── views/                 # EJS Templates
-│   ├── index.ejs          # Landing page
-│   ├── marketplace.ejs    # Browse/filter listings
-│   ├── listing.ejs        # Individual listing + claim form
-│   ├── donate.ejs         # Post new surplus listing
-│   ├── dashboard.ejs      # Stats + management view
-│   ├── about.ejs          # Mission + SDG alignment
-│   └── partials/
-│       ├── header.ejs     # Nav
-│       └── footer.ejs     # Footer
-└── public/
-    └── css/
-        └── style.css      # Full design system
-\`\`\`
+├── server.js              # Express app + MongoDB connection + API routes
+├── public/                # Static assets
+│   └── css/
+│       └── style.css      # Full design system
+└── views/                 # EJS Templates
+    ├── about.ejs          # Mission + SDG alignment
+    ├── dashboard.ejs      # Stats + management view
+    ├── donate.ejs         # Post new surplus listing
+    ├── index.ejs          # Landing page
+    ├── listing.ejs        # Individual listing + claim form
+    ├── marketplace.ejs    # Browse/filter listings
+    └── partials/
+        ├── footer.ejs     # Footer
+        └── header.ejs     # Nav
+```
 
 ## SDG Alignment
 
@@ -79,6 +79,12 @@ MedConnect directly addresses:
 - [ ] **Authentication:** Secure user accounts via Passport.js or Auth0.
 - [ ] **Email Notifications:** Automated claim alerts via Nodemailer or SendGrid.
 - [ ] **File Uploads:** Real image hosting for supply listings via Multer + AWS S3.
+- [ ] **Geolocation:** Map-based matching to connect local donors with local clinics.
+- [ ] **Impact Reporting:** Automated PDF generation for hospital tax write-offs.
+
+## License
+
+MIT — Built for good.- [ ] **File Uploads:** Real image hosting for supply listings via Multer + AWS S3.
 - [ ] **Geolocation:** Map-based matching to connect local donors with local clinics.
 - [ ] **Impact Reporting:** Automated PDF generation for hospital tax write-offs.
 
