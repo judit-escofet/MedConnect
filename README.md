@@ -84,10 +84,4 @@ MedConnect directly addresses:
 
 ## License
 
-MIT — Built for good.- [ ] **File Uploads:** Real image hosting for supply listings via Multer + AWS S3.
-- [ ] **Geolocation:** Map-based matching to connect local donors with local clinics.
-- [ ] **Impact Reporting:** Automated PDF generation for hospital tax write-offs.
-
-## License
-
 MIT — Built for good.
